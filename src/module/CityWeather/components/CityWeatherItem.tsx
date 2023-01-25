@@ -2,10 +2,11 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React, {useCallback} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {CityWeather} from '../types';
+import {ICON_URL} from '../api/constants';
 import Chip from './Chip';
 
 function CityWeatherItem({
-  item: {id, value, title, description},
+  item: {id, temperature, name, icon, condition},
   showChevron,
 }: {
   item: CityWeather;
@@ -19,22 +20,22 @@ function CityWeatherItem({
     <TouchableOpacity
       style={styles.container}
       accessibilityRole="button"
-      accessibilityLabel={title}
-      testID={title}
+      accessibilityLabel={name}
+      testID={name}
       onPress={handleNavigationToWeatherItem}>
       <View style={styles.mainContent}>
         <View style={styles.textAndImageContent}>
           <Image
             accessibilityIgnoresInvertColors
             style={styles.image}
-            source={require('../../../assets/cloud-icon-14.png')}
+            source={{uri: `${ICON_URL}${icon}.png`}}
           />
           <View>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.description}>{description}</Text>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.description}>{condition}</Text>
           </View>
         </View>
-        <Chip value={value} />
+        <Chip value={temperature} />
       </View>
       {showChevron && (
         <Image
@@ -50,7 +51,7 @@ function CityWeatherItem({
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
+    paddingVertical: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -69,7 +70,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
   },
-  image: {width: 24, height: 24, marginRight: 10},
+  image: {width: 32, height: 32, marginRight: 10},
   description: {
     fontWeight: 'bold',
     color: '#95a5c9',
