@@ -26,16 +26,21 @@ function CityWeatherItem({
       <View style={styles.mainContent}>
         <View style={styles.textAndImageContent}>
           <Image
+            testID="image"
             accessibilityIgnoresInvertColors
             style={styles.image}
             source={{uri: `${ICON_URL}${icon}.png`}}
           />
           <View>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.description}>{condition}</Text>
+            <Text testID="name" style={styles.title}>
+              {name}
+            </Text>
+            <Text testID="condition" style={styles.condition}>
+              {condition}
+            </Text>
           </View>
         </View>
-        <Chip value={temperature} />
+        <Chip value={`${temperature} &deg; F`} />
       </View>
       {showChevron && (
         <Image
@@ -71,7 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   image: {width: 32, height: 32, marginRight: 10},
-  description: {
+  condition: {
     fontWeight: 'bold',
     color: '#95a5c9',
     fontSize: 14,
