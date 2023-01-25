@@ -1,10 +1,10 @@
 import {View, Text, StyleSheet} from 'react-native';
 import React from 'react';
 
-const Chip = ({value}: {value: number}) => {
+const Chip = ({value}: {value: string}) => {
   return (
     <View testID="chip" style={styles.container}>
-      <Text style={styles.text}>{value} &deg; F</Text>
+      <Text style={styles.text}>{value}</Text>
     </View>
   );
 };

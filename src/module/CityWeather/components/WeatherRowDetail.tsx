@@ -12,7 +12,9 @@ function WeatherRowDetail({
 }) {
   return (
     <View style={styles.row}>
-      <Text style={styles.text}>{label}</Text>
+      <Text testID={label} style={styles.text}>
+        {label}
+      </Text>
       <Text testID={testID} style={styles.value}>
         {value}
       </Text>
