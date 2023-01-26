@@ -10,6 +10,7 @@ jest.mock('@react-navigation/native', () => {
     ...actualNav,
     useNavigation: () => ({
       navigate: mockedNavigate,
+      setOptions: jest.fn(),
     }),
   };
 });
@@ -48,4 +49,31 @@ it('should render CityWeatherListItems screen with correct values', async () => 
   expect(mockedNavigate).toHaveBeenCalledWith('CityWeatherDetails', {
     id: mockData.id,
   });
+});
+
+it('should show loading indicator if api is loading data', async () => {
+  jest.spyOn(CityWeatherContext, 'useCityWeatherContext').mockImplementation(
+    // @ts-ignore
+    jest.fn(() => ({
+      weather: [mockData],
+      loading: true,
+    })),
+  );
+  render(<CityWeatherListItems />);
+
+  expect(screen.getByTestId('loading')).toBeTruthy();
+});
+
+it('should show error info if api is returning error', async () => {
+  jest.spyOn(CityWeatherContext, 'useCityWeatherContext').mockImplementation(
+    // @ts-ignore
+    jest.fn(() => ({
+      weather: [mockData],
+      loading: false,
+      error: true,
+    })),
+  );
+  render(<CityWeatherListItems />);
+
+  expect(screen.getByTestId('error')).toBeTruthy();
 });

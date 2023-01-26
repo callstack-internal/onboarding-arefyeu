@@ -13,12 +13,13 @@ function CityWeatherItem({
   showChevron?: boolean;
 }) {
   const navigation = useNavigation();
+  navigation.setOptions({title: name});
   const handleNavigationToWeatherItem = useCallback(() => {
     showChevron && navigation.navigate('CityWeatherDetails', {id});
   }, [id, navigation, showChevron]);
   return (
     <TouchableOpacity
-      style={styles.container}
+      style={showChevron ? styles.container : styles.containerWithLine}
       accessibilityRole="button"
       accessibilityLabel={name}
       testID={name}
@@ -40,7 +41,7 @@ function CityWeatherItem({
             </Text>
           </View>
         </View>
-        <Chip value={`${temperature} &deg; F`} />
+        <Chip value={`${temperature} °F`} />
       </View>
       {showChevron && (
         <Image
@@ -80,6 +81,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#95a5c9',
     fontSize: 14,
+  },
+  containerWithLine: {
+    paddingVertical: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderBottomColor: 'gray',
+    borderBottomWidth: 0.4,
   },
 });
 

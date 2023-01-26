@@ -4,7 +4,7 @@ import React, {memo} from 'react';
 function CityWeatherListHeader() {
   return (
     <View style={styles.header}>
-      <Text>Weather</Text>
+      <Text style={styles.headerText}>Weather</Text>
     </View>
   );
 }
@@ -12,11 +12,14 @@ function CityWeatherListHeader() {
 const styles = StyleSheet.create({
   header: {
     flex: 1,
-    height: 40,
+    height: 60,
     width: '100%',
-    backgroundColor: 'gray',
+    backgroundColor: '#C8C8C8',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  headerText: {
+    fontSize: 20,
   },
 });
 
