@@ -8,25 +8,29 @@ const WeatherContext = createContext<{
   weather: CityWeather[];
   handleLoadCitiesWeather: () => void;
   loading: boolean;
+  error?: unknown;
 } | null>(null);
 
 function CityWeatherContext({children}: PropsWithChildren) {
   const [weather, setWeather] = useState<CityWeather[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<unknown>(undefined);
 
   const handleLoadCitiesWeather = useCallback(async () => {
+    setLoading(true);
     try {
       const weather = await fetchWeather();
+      if (error) setError(undefined);
       setWeather(weather);
     } catch (error) {
-      //TODO error here
+      setError(error);
     }
     setLoading(false);
-  }, []);
+  }, [error]);
 
   const value = useMemo(
-    () => ({weather, handleLoadCitiesWeather, loading}),
-    [handleLoadCitiesWeather, loading, weather],
+    () => ({weather, handleLoadCitiesWeather, loading, error}),
+    [error, handleLoadCitiesWeather, loading, weather],
   );
   return (
     <WeatherContext.Provider value={value}>{children}</WeatherContext.Provider>
