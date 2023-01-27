@@ -1,7 +1,6 @@
 name: Pull Request CI
 
 on:
-  push:
   pull_request:
 jobs:
   tests:
