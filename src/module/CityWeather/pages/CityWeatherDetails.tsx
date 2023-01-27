@@ -1,10 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Button, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../../navigation';
 import CityWeatherItem from '../components/CityWeatherItem';
 import useWeatherForCity from '../hooks/useCityWeather';
 import WeatherRowDetail from '../components/WeatherRowDetail';
+import {showNotification} from '../utils/showNativeNotifications';
 
 function CityWeatherDayDetails({
   route: {
@@ -36,6 +37,9 @@ function CityWeatherDayDetails({
         testID="cloud-cover"
         value={`${clouds}%`}
       />
+      <Button
+        title="Show notification"
+        onPress={() => showNotification('Title', 'Description')}></Button>
     </View>
   );
 }
